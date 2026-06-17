@@ -175,25 +175,65 @@
         speakTgt.addEventListener("click", () => speak(output.value, targetSel.value));
 
         // =============================================================
-        //  COPY
+        //  COPY  (3-tier fallback so it works everywhere)
         // =============================================================
-        copyBtn.addEventListener("click", async () => {
-            if (!output.value) return;
+        async function copyToClipboard(text) {
+            // Method 1 — modern Clipboard API (works on HTTPS / localhost)
+            if (navigator.clipboard && window.isSecureContext) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch (_) { /* fall through */ }
+            }
+
+            // Method 2 — execCommand (legacy, works on file:// too)
             try {
-                await navigator.clipboard.writeText(output.value);
-                const svg = copyBtn.querySelector("svg");
+                const ta = document.createElement("textarea");
+                ta.value = text;
+                ta.style.cssText = "position:fixed;top:-9999px;left:-9999px;opacity:0;";
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                const ok = document.execCommand("copy");
+                document.body.removeChild(ta);
+                if (ok) return true;
+            } catch (_) { /* fall through */ }
+
+            // Method 3 — select the output textarea itself
+            try {
+                output.select();
+                output.setSelectionRange(0, 99999);
+                return document.execCommand("copy");
+            } catch (_) {
+                return false;
+            }
+        }
+
+        copyBtn.addEventListener("click", async () => {
+            const text = output.value.trim();
+            if (!text) return;
+
+            const ok = await copyToClipboard(text);
+            const svg = copyBtn.querySelector("svg");
+
+            if (ok) {
+                // ✅ Success — show checkmark
                 if (svg) {
                     const original = svg.innerHTML;
-                    svg.innerHTML =
-                        `<path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+                    svg.innerHTML = `<path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
                     copyBtn.classList.add("success");
                     setTimeout(() => {
                         svg.innerHTML = original;
                         copyBtn.classList.remove("success");
                     }, 2000);
                 }
-            } catch (_) { /* ignore */ }
+            } else {
+                // ❌ All methods failed — briefly show red to signal error
+                copyBtn.style.color = "var(--danger, #f87171)";
+                setTimeout(() => { copyBtn.style.color = ""; }, 1500);
+            }
         });
+
 
         // =============================================================
         //  CHIPS
