@@ -112,13 +112,17 @@
             loader.classList.remove("hidden");
 
             try {
-                const src = sourceSel.value === "auto" ? "autodetect" : sourceSel.value;
+                const src = sourceSel.value === "auto" ? "auto" : sourceSel.value;
                 const tgt = targetSel.value;
-                const url =
-                    `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text.slice(0, 500))}&langpair=${encodeURIComponent(src)}|${encodeURIComponent(tgt)}`;
+                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(src)}&tl=${encodeURIComponent(tgt)}&dt=t&q=${encodeURIComponent(text.slice(0, 500))}`;
                 const res = await fetch(url, { signal: controller.signal });
                 const data = await res.json();
-                output.value = data?.responseData?.translatedText ?? "";
+                
+                if (data && data[0]) {
+                    output.value = data[0].map(item => item[0]).join('');
+                } else {
+                    output.value = "";
+                }
             } catch (e) {
                 if (e.name !== "AbortError") {
                     errEl.textContent = "Translation failed. Please try again.";
@@ -130,7 +134,7 @@
 
         function debounceTranslate() {
             clearTimeout(timer);
-            timer = setTimeout(translate, 400);
+            timer = setTimeout(translate, 1200);
         }
 
         // =============================================================
@@ -244,6 +248,42 @@
                 counter.textContent = `${input.value.length} / 500`;
                 translate();
             });
+        });
+
+        // =============================================================
+        //  THEME TOGGLE
+        // =============================================================
+        const themeToggleBtn = $("themeToggle");
+        const sunIcon = themeToggleBtn.querySelector(".sun-icon");
+        const moonIcon = themeToggleBtn.querySelector(".moon-icon");
+        
+        // Check for saved theme preference, otherwise use system preference
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        
+        if (savedTheme === "light" || (!savedTheme && !prefersDark)) {
+            document.documentElement.setAttribute("data-theme", "light");
+            sunIcon.style.display = "none";
+            moonIcon.style.display = "block";
+        } else {
+            // Default is dark mode in CSS
+            sunIcon.style.display = "block";
+            moonIcon.style.display = "none";
+        }
+
+        themeToggleBtn.addEventListener("click", () => {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            if (currentTheme === "light") {
+                document.documentElement.removeAttribute("data-theme");
+                localStorage.setItem("theme", "dark");
+                sunIcon.style.display = "block";
+                moonIcon.style.display = "none";
+            } else {
+                document.documentElement.setAttribute("data-theme", "light");
+                localStorage.setItem("theme", "light");
+                sunIcon.style.display = "none";
+                moonIcon.style.display = "block";
+            }
         });
 
         // =============================================================

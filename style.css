@@ -873,3 +873,50 @@ body {
   clip: rect(0,0,0,0);
   border: 0;
 }
+
+/* ============================================================
+   LIGHT THEME
+   ============================================================ */
+[data-theme="light"] {
+  --bg:           #f4f6fa;
+  --bg-2:         #ffffff;
+  --surface:      rgba(255,255,255,0.7);
+  --surface-2:    #ffffff;
+  --surface-hover:rgba(0,0,0,0.05);
+  --border:       rgba(0,0,0,0.1);
+  --border-focus: rgba(245,188,0,0.5);
+
+  --fg:           #1e293b;
+  --fg-2:         #475569;
+  --fg-3:         #64748b;
+
+  --shadow-card:  0 32px 80px rgba(0,0,0,0.08), 0 8px 32px rgba(0,0,0,0.04);
+}
+
+[data-theme="light"] .mesh {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+}
+
+[data-theme="light"] .card {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+[data-theme="light"] .select-wrap select option {
+  background: #ffffff;
+  color: var(--fg);
+}
+
+[data-theme="light"] .loader-dots {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="light"] .swap-btn,
+[data-theme="light"] .chip {
+  background: #ffffff;
+}
+
+[data-theme="light"] .panel textarea[readonly] {
+  color: rgba(30,41,59,0.85);
+}
