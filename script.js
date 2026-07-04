@@ -97,10 +97,13 @@
         // =============================================================
         //  TRANSLATE
         // =============================================================
+        // Google Apps Script Web App URL (Paste your URL here)
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywHlprDYYvRuv-_PukUn3IrJ8S6ofyDltBBnsS1Z0Z5Wi1_q5FPzfTY1OnHby_Rc2E_g/exec"; 
+
         async function translate() {
             errEl.textContent = "";
             const text = input.value.trim();
-            counter.textContent = `${input.value.length} / 500`;
+            counter.textContent = `${input.value.length} / 5000`;
 
             if (!text) {
                 output.value = "";
@@ -114,18 +117,52 @@
             try {
                 const src = sourceSel.value === "auto" ? "auto" : sourceSel.value;
                 const tgt = targetSel.value;
-                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(src)}&tl=${encodeURIComponent(tgt)}&dt=t&q=${encodeURIComponent(text.slice(0, 500))}`;
-                const res = await fetch(url, { signal: controller.signal });
-                const data = await res.json();
                 
-                if (data && data[0]) {
-                    output.value = data[0].map(item => item[0]).join('');
+                const cleanedText = text
+                    .split(/\n\s*\n/)
+                    .map(p => p.replace(/\n/g, ' '))
+                    .join('\n\n');
+                
+                if (APPS_SCRIPT_URL && APPS_SCRIPT_URL.startsWith("https://script.google.com/")) {
+                    // Use the High-Quality NMT API via Google Apps Script
+                    const res = await fetch(APPS_SCRIPT_URL, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: `q=${encodeURIComponent(cleanedText)}&sl=${encodeURIComponent(src)}&tl=${encodeURIComponent(tgt)}`,
+                        signal: controller.signal
+                    });
+                    
+                    const translatedText = await res.text();
+                    output.value = translatedText;
                 } else {
-                    output.value = "";
+                    // Fallback to the old free API
+                    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(src)}&tl=${encodeURIComponent(tgt)}&dt=t`;
+                    
+                    const res = await fetch(url, { 
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: `q=${encodeURIComponent(cleanedText.slice(0, 5000))}`,
+                        signal: controller.signal 
+                    });
+                    
+                    const data = await res.json();
+                    
+                    if (data && data[0]) {
+                        output.value = data[0]
+                            .map(item => (item && item[0]) ? item[0] : "")
+                            .join('');
+                    } else {
+                        output.value = "";
+                    }
                 }
             } catch (e) {
                 if (e.name !== "AbortError") {
                     errEl.textContent = "Translation failed. Please try again.";
+                    console.error("Translation error:", e);
                 }
             } finally {
                 loader.classList.add("hidden");
@@ -159,7 +196,7 @@
             const ov = output.value;
             input.value = ov;
             output.value = iv;
-            counter.textContent = `${input.value.length} / 500`;
+            counter.textContent = `${input.value.length} / 5000`;
             updateStatus();
             translate();
         });
@@ -245,7 +282,7 @@
         document.querySelectorAll(".chip").forEach((chip) => {
             chip.addEventListener("click", () => {
                 input.value = chip.textContent;
-                counter.textContent = `${input.value.length} / 500`;
+                counter.textContent = `${input.value.length} / 5000`;
                 translate();
             });
         });
