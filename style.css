@@ -1,8 +1,4 @@
-/* ============================================================
-   ROOT & DESIGN TOKENS
-   ============================================================ */
 :root {
-  /* Palette */
   --bg:           #0d0e14;
   --bg-2:         #12141e;
   --surface:      rgba(255,255,255,0.038);
@@ -11,7 +7,6 @@
   --border:       rgba(255,255,255,0.07);
   --border-focus: rgba(250,189,0,0.45);
 
-  /* Brand colors */
   --gold:         #f5bc00;
   --gold-dim:     rgba(245,188,0,0.12);
   --gold-glow:    rgba(245,188,0,0.22);
@@ -19,22 +14,18 @@
   --indigo:       #6366f1;
   --indigo-dim:   rgba(99,102,241,0.15);
 
-  /* Text */
   --fg:           #f0f2f8;
   --fg-2:         #9aa0b8;
   --fg-3:         #5c6380;
 
-  /* Semantic */
   --danger:       #f87171;
   --success:      #34d399;
 
-  /* Geometry */
   --radius-xl:    1.75rem;
   --radius-lg:    1.25rem;
   --radius-md:    0.875rem;
   --radius-sm:    0.5rem;
 
-  /* Effects */
   --shadow-card:  0 32px 80px rgba(0,0,0,0.55), 0 8px 32px rgba(0,0,0,0.35);
   --shadow-sm:    0 4px 20px rgba(0,0,0,0.25);
   --blur:         blur(20px);
@@ -42,9 +33,6 @@
   --spring:       0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ============================================================
-   RESET
-   ============================================================ */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -66,9 +54,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ============================================================
-   ANIMATED BACKGROUND
-   ============================================================ */
 .bg {
   position: fixed;
   inset: 0;
@@ -77,7 +62,6 @@ body {
   pointer-events: none;
 }
 
-/* Fine mesh grid */
 .mesh {
   position: absolute;
   inset: 0;
@@ -89,7 +73,6 @@ body {
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 80%);
 }
 
-/* Gradient orbs */
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -134,7 +117,6 @@ body {
   100% { transform: translate(20px, -15px) scale(1.02); }
 }
 
-/* Noise texture overlay */
 .noise {
   position: absolute;
   inset: 0;
@@ -143,9 +125,6 @@ body {
   background-size: 180px;
 }
 
-/* ============================================================
-   HEADER
-   ============================================================ */
 .header {
   max-width: 72rem;
   margin: 0 auto;
@@ -176,7 +155,6 @@ body {
   box-shadow: 0 6px 24px rgba(99,102,241,0.35);
   transition: transform var(--spring), box-shadow var(--transition);
   flex-shrink: 0;
-  overflow: visible;
 }
 
 .brand:hover .brand-logo {
@@ -234,9 +212,6 @@ body {
   50%       { opacity: 0.5; transform: scale(0.75); }
 }
 
-/* ============================================================
-   HERO
-   ============================================================ */
 .hero {
   max-width: 72rem;
   margin: 0 auto;
@@ -299,9 +274,6 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ============================================================
-   TRANSLATOR LAYOUT
-   ============================================================ */
 .translator {
   max-width: 72rem;
   margin: 0 auto;
@@ -313,9 +285,6 @@ body {
   gap: 1.5rem;
 }
 
-/* ============================================================
-   CARD
-   ============================================================ */
 .card {
   background: rgba(18, 20, 30, 0.7);
   border: 1px solid var(--border);
@@ -337,7 +306,6 @@ body {
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* ---- Language Bar ---- */
 .lang-bar {
   display: flex;
   align-items: center;
@@ -413,7 +381,6 @@ body {
   display: flex;
 }
 
-/* ---- Swap button ---- */
 .swap-btn {
   width: 2.75rem;
   height: 2.75rem;
@@ -441,14 +408,12 @@ body {
   transform: rotate(180deg) scale(0.92);
 }
 
-/* ---- Card Divider ---- */
 .card-divider {
   height: 1px;
   background: var(--border);
   margin: 0;
 }
 
-/* ---- Panels ---- */
 .panels {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
@@ -496,7 +461,6 @@ body {
   border-radius: 2px 0 0 2px;
 }
 
-/* ---- Textarea ---- */
 .panel textarea {
   flex: 1;
   width: 100%;
@@ -523,7 +487,6 @@ body {
   color: rgba(240,242,248,0.85);
 }
 
-/* ---- Output wrap & loader ---- */
 .output-wrap {
   flex: 1;
   position: relative;
@@ -575,7 +538,6 @@ body {
   40%           { transform: scale(1.1); opacity: 1; }
 }
 
-/* ---- Panel footer ---- */
 .panel-foot {
   display: flex;
   align-items: center;
@@ -593,7 +555,6 @@ body {
   align-items: center;
 }
 
-/* ---- Icon buttons ---- */
 .icon-btn {
   width: 2.1rem;
   height: 2.1rem;
@@ -625,7 +586,6 @@ body {
   border-color: rgba(52,211,153,0.2);
 }
 
-/* ---- Counter & error ---- */
 .counter {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.68rem;
@@ -639,9 +599,6 @@ body {
   font-weight: 500;
 }
 
-/* ============================================================
-   QUICK PHRASES / CHIPS
-   ============================================================ */
 .chips-section {
   display: flex;
   flex-direction: column;
@@ -692,9 +649,6 @@ body {
   transform: scale(0.96) translateY(0);
 }
 
-/* ============================================================
-   STATUS
-   ============================================================ */
 .status {
   text-align: center;
   font-size: 0.72rem;
@@ -704,9 +658,6 @@ body {
   flex-shrink: 0;
 }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
 .footer {
   padding: 2rem 2rem 1.75rem;
   border-top: 1px solid var(--border);
@@ -748,17 +699,11 @@ body {
   opacity: 0.55;
 }
 
-/* ============================================================
-   SCROLLBAR
-   ============================================================ */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 @media (max-width: 860px) {
   .panels {
     grid-template-columns: 1fr;
@@ -860,9 +805,6 @@ body {
   .select-wrap { max-width: 100%; }
 }
 
-/* ============================================================
-   UTILITY
-   ============================================================ */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -874,9 +816,6 @@ body {
   border: 0;
 }
 
-/* ============================================================
-   LIGHT THEME
-   ============================================================ */
 [data-theme="light"] {
   --bg:           #f4f6fa;
   --bg-2:         #ffffff;

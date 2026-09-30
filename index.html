@@ -8,11 +8,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="assets/pg-logo.svg" />
+  <link rel="apple-touch-icon" href="assets/pg-logo.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ====== BACKGROUND ====== -->
   <div class="bg" aria-hidden="true">
     <div class="mesh"></div>
     <div class="orb orb-1"></div>
@@ -21,11 +22,9 @@
     <div class="noise"></div>
   </div>
 
-  <!-- ====== HEADER ====== -->
   <header class="header">
     <a class="brand" href="#" aria-label="Polyglot home">
       <div class="brand-logo" aria-hidden="true">
-        <!-- Translate icon: A → あ -->
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h24v24H0z" fill="none"/>
           <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
@@ -35,9 +34,7 @@
     </a>
     <div class="header-right">
       <button id="themeToggle" class="icon-btn theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
-        <!-- Sun icon for light mode -->
         <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-        <!-- Moon icon for dark mode -->
         <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
       </button>
       <div class="live-badge">
@@ -47,7 +44,6 @@
     </div>
   </header>
 
-  <!-- ====== HERO ====== -->
   <section class="hero" aria-labelledby="hero-heading">
     <div class="hero-eyebrow">
       <span class="eyebrow-icon" aria-hidden="true">✦</span>
@@ -63,13 +59,10 @@
     </p>
   </section>
 
-  <!-- ====== TRANSLATOR ====== -->
   <main class="translator" id="translator">
 
-    <!-- TRANSLATE CARD -->
     <div class="card">
 
-      <!-- LANGUAGE BAR -->
       <div class="lang-bar">
         <div class="lang-slot">
           <label class="lang-label" for="sourceLang">From</label>
@@ -98,13 +91,10 @@
         </div>
       </div>
 
-      <!-- DIVIDER -->
       <div class="card-divider" aria-hidden="true"></div>
 
-      <!-- PANELS -->
       <div class="panels">
 
-        <!-- SOURCE PANEL -->
         <div class="panel panel-src">
           <textarea
             id="input"
@@ -122,10 +112,8 @@
           </div>
         </div>
 
-        <!-- VERTICAL DIVIDER -->
         <div class="panel-divider" aria-hidden="true"></div>
 
-        <!-- TARGET PANEL -->
         <div class="panel panel-tgt">
           <div class="output-wrap">
             <textarea
@@ -157,7 +145,6 @@
       </div>
     </div>
 
-    <!-- QUICK PHRASES -->
     <div class="chips-section">
       <span class="chips-label">Quick phrases</span>
       <div class="chips" role="list">
@@ -174,7 +161,6 @@
 
   </main>
 
-  <!-- ====== FOOTER ====== -->
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-brand">
