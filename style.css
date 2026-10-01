@@ -778,11 +778,11 @@ body {
 
   .panel textarea {
     font-size: 0.95rem;
-    min-height: 8rem;
+    min-height: 11rem;
   }
 
   .output-wrap textarea {
-    min-height: 8rem;
+    min-height: 11rem;
   }
 
   .chip {
